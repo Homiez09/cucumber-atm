@@ -44,6 +44,11 @@ public class StepDefATM {
         assertFalse(validLogin);
     }
 
+    @Then("Customer ID not found")
+    public void that_id_does_not_exist() {
+        assertFalse(validLogin);
+    }
+
     @When("I withdraw {float} from ATM")
     public void i_withdraw_from_atm(double amount) throws NotEnoughBalanceException {
         atm.withdraw(amount);
@@ -54,6 +59,12 @@ public class StepDefATM {
         assertThrows(NotEnoughBalanceException.class,
                 () -> atm.withdraw(amount));
     }
+
+    @When("I deposit {float} to ATM")
+    public void when_i_deposit_to_atm(double amount) {
+        atm.deposit(amount);
+    }
+
     @Then("my account balance is {float}")
     public void my_account_balance_is(double balance) {
         assertEquals(balance, atm.getBalance());
@@ -69,5 +80,4 @@ public class StepDefATM {
         assertEquals(balance,
                      bank.getCustomer(id).getAccount().getBalance());
     }
-
 }
